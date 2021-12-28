@@ -1,0 +1,128 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-color: rgba(0, 0, 0, 0.747);
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  color: #F0f0f0;
+}
+
+.top-site{
+  margin-top: 3vh;
+  padding: 3vh;
+}
+.content-search{
+  padding: 2vh;
+}
+
+.title{
+  cursor: pointer;
+}
+
+.animePosterList{
+  cursor: pointer;
+}
+
+.animesList {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  );
+  list-style: none;
+  grid-gap: 1.5rem;
+}
+
+.aNone{
+  text-decoration: none;
+  color: #F0f0f0;
+}
+
+.animeDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
+  grid-gap: 1.5rem;
+}
+
+.animesList img {
+  max-width: 100%;
+}
+
+.carousel {
+  height: 250px;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  left: 10%;
+}
+.carousel li {
+  list-style: none;
+}
+
+.carousel .switchLeft,
+.carousel .switchRight{
+  color: white;
+  font-weight: bold;
+  height: 100%;
+  width: 45px;
+  line-height: 250px;
+  font-size: 25px;
+  text-align: center;
+  background-color: tomato;
+  font-family: sans-serif;
+  top: 0;
+  z-index: 3;
+}
+
+.carousel .switchLeft{
+  position: absolute;
+  left: -50px;
+}
+
+.carousel .switchRight{
+  position: absolute;
+  right: -50px;
+}
+
+.carouselBox {
+  min-height: 250px;
+  width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  padding-bottom: 10px !important;
+  display: flex;
+  align-items: center;
+}
+
+.carousel img{
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: tomato;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselBox img:hover{
+  transform: scale(1.4);
+  z-index: 5;
+}
+.content{
+  align-items: center;
+  width: 100%;
+}
+
+.content-carousel{
+
+}
