@@ -4,7 +4,7 @@ import Link from 'next/link';
 import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
-import ListAnimesCat from '../components/listAnimesCat';
+// import ListAnimesCat from '../components/listAnimesCat';
 
 // import axios from "axios"
 const api = 'https://kitsu.io/api/edge/';
@@ -132,7 +132,7 @@ const HomePage = (props) => {
               
               ) 
           }
-          <ListAnimesCat/>
+          {/* <ListAnimesCat/> */}
           {/* {
             listAnimePorCat.length > 0 ? 
             listAnimePorCat.map((item)=>{
