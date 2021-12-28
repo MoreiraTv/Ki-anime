@@ -22,8 +22,8 @@ const apiLocal = axios.create({
 
 const HomePage = (props) => {
 
-  let listTreding = props.listTreding
-  let listAnimesCatAdventure = props.listAnimesCatAdventure
+  let listTreding = props.listTreding.data
+  let listAnimesCatAdventure = props.listAnimesCatAdventure.data
   // let listCat = props.listCat
   let listAnimePorCat = props.listAnimePorCat
 
