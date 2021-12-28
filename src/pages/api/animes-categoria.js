@@ -3,7 +3,7 @@ const api = axios.create({
   baseURL: 'https://kitsu.io/api/edge/'
 });
 const apiLocal = axios.create({
-  baseURL: 'http://localhost:3000/api/'
+  baseURL: 'https://ki-anime.vercel.app/api/'
 });
 
 async function animesCatergoria(resquest,response) {
