@@ -4,9 +4,9 @@ import Link from 'next/link';
 import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
-import ListAnimesCat from './listAnimesCat';
+import ListAnimesCat from '../components/listAnimesCat';
 
-import axios from "axios"
+// import axios from "axios"
 const api = 'https://kitsu.io/api/edge/';
 
 // const api2 = axios.create({
