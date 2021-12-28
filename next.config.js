@@ -1,3 +1,3 @@
 module.exports = {
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout: 1500,
 }
