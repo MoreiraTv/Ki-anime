@@ -6,8 +6,13 @@ import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
 // import ListAnimesCat from '../components/listAnimesCat';
 
-// import axios from "axios"
-const api = 'https://kitsu.io/api/edge/';
+import axios from "axios"
+const api = axios.create({
+  baseURL: 'https://kitsu.io/api/edge/'
+});
+const apiLocal = axios.create({
+  baseURL: 'https://ki-anime.vercel.app/api/'
+});
 
 // const api2 = axios.create({
 //   baseURL: 'https://kitsu.io/api/edge/'
@@ -20,7 +25,7 @@ const HomePage = (props) => {
   let listTreding = props.listTreding
   let listAnimesCatAdventure = props.listAnimesCatAdventure
   // let listCat = props.listCat
-  // let listAnimePorCat = props.listAnimePorCat
+  let listAnimePorCat = props.listAnimePorCat
 
   
   
@@ -150,39 +155,19 @@ const HomePage = (props) => {
 }
 
 export async function getStaticProps() {
-    let listTreding = await fetch(
-        `${api}trending/anime`
-      )
-        .then((response) => response.json())
-        // .then((response) => {
-        // });
-    let listAnimesCatAdventure = await fetch(
-          `${api}anime?filter[categories]=adventure$&page[limit]=20`
-          )
-          .then((response) => response.json())
+    let listTreding = await api.get(`trending/anime`)
+        
+    let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
     
-    // let listCat = await fetch(
-    //     `${api}categories?page[limit]=30[offset]=30`
-    //     )
-    //     .then((response) => response.json())
-      
-      // let listAnimePorCat = [];
-      // let lisCatArray = Array.from(listCat.data)
-      // for(let x = 0; x < listCat.data.length; x++){
-      //   let catAtual = lisCatArray[x].attributes.title
-      //   const resp = await api2.get(`anime?filter[categories]=${catAtual}$&page[limit]=10`)
-      //   const response = resp.data
-      //   const y = Array.from(response)
-      //   y.push({categoria: catAtual , response});
-      //   listAnimePorCat.push(y)
-      // }
+    // let listAnimePorCat = await apiLocal.get('animes_categoria')
 
+    // console.log(listAnimePorCat)
 
       return {
         props: {
           listTreding : listTreding.data,
           listAnimesCatAdventure: listAnimesCatAdventure.data,
-          // listCat: listCat.data,
+          // listAnimePorCat: listAnimePorCat.data,
         }
       }
     
