@@ -1,7 +1,7 @@
-import Link from 'next/Link';
+import {Link} from 'next';
 import {useRef, useState} from 'react';
 
-const api = 'https://kitsu.io/api/edge/';
+// const api = 'https://kitsu.io/api/edge/';
 
 
 const Carousel = ({data}) => {
