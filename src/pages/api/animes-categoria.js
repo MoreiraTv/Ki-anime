@@ -26,7 +26,7 @@ async function animesCatergoria(resquest,response) {
   // response.json({
   //   listAnimePorCat
   // })
-  response.json(console.log(typeof  listAnimePorCat))
+  response.json("teste")
   
 }
 
