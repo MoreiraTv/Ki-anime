@@ -138,7 +138,7 @@ const HomePage = (props) => {
               ) 
           }
           {/* <ListAnimesCat/> */}
-          {/* {
+          {
             listAnimePorCat.length > 0 ? 
             listAnimePorCat.map((item)=>{
               return(
@@ -147,7 +147,7 @@ const HomePage = (props) => {
                  <Carousel data={item[0].response.data}/>
               </>
             )})  : <></>
-          } */}
+          }
         </div>
 
     </div>
@@ -159,15 +159,13 @@ export async function getStaticProps() {
         
     let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
     
-    // let listAnimePorCat = await apiLocal.get('animes_categoria')
-
-    // console.log(listAnimePorCat)
+    let listAnimePorCat = await apiLocal.get('animes_categoria')
 
       return {
         props: {
           listTreding : listTreding.data,
           listAnimesCatAdventure: listAnimesCatAdventure.data,
-          // listAnimePorCat: listAnimePorCat.data,
+          listAnimePorCat: listAnimePorCat.data.listAnimePorCat,
         }
       }
     
