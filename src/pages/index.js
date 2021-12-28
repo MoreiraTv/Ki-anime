@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Link} from 'next';
+import Link from 'next/Link';
 
 import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';

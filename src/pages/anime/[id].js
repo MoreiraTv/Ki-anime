@@ -1,13 +1,41 @@
 import { useState } from 'react';
-import {Link} from 'next';
+import Link from 'next/Link';
 import SearchInput from '../../components/SearchInput';
 
 const api = 'https://kitsu.io/api/edge/';
 
+
+export async function getStaticPaths(){
+  return {
+    paths: [
+      { params: {
+        id: '11'
+      } } 
+    ],
+    fallback: 'blocking'
+  };
+}
+
+export async function getStaticProps(context) {
+  const id = context.params.id;
+
+  let anime = await fetch(
+    `${api}anime?filter[id]=${id}`
+  )
+    .then((response) => response.json())
+    // .then((response) => {
+    // });
+    // console.log(anime.data)
+    return {
+      props: {
+        anime: anime.data,
+    }
+  }
+}
+
 export default function id(props){
   const [text, setText] = useState('');
 
-// console.log(props.props.anime)
   return (
     <>
     <div>
@@ -30,7 +58,7 @@ export default function id(props){
         <div className="animeDetail">
 
             <ul className="animesList">
-              {props.props.anime.map((anime) => (
+              {props.anime.map((anime) => (
                 <li key={anime.id}>
                   <img
                     className="animePosterList"
@@ -41,7 +69,7 @@ export default function id(props){
               ))}
             </ul>
             <ul className="animesList">
-              {props.props.anime.map((anime) => (
+              {props.anime.map((anime) => (
                 <li key={anime.id}>
                   <h2>{anime.attributes.canonicalTitle}</h2>
                   <p>
@@ -84,19 +112,3 @@ export default function id(props){
 
 }
 
-id.getInitialProps = async (context) => {
-  const id = context.query.id;
-
-  let anime = await fetch(
-    `${api}anime?filter[id]=${id}`
-  )
-    .then((response) => response.json())
-    // .then((response) => {
-    // });
-    console.log(anime.data)
-    return {
-      props: {
-        anime: anime.data,
-    }
-  }
-}
