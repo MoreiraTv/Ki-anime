@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Link from 'next/Link';
+import Link from 'next/link';;
 import SearchInput from '../../components/SearchInput';
 
 const api = 'https://kitsu.io/api/edge/';

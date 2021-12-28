@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';;
 import {useRef, useState} from 'react';
 
 // const api = 'https://kitsu.io/api/edge/';
