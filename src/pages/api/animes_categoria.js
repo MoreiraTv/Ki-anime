@@ -11,7 +11,6 @@ async function animesCatergoria(resquest,response) {
   let listAnimePorCat = [];
   let lisCatArray = Array.from(listCat.data.listCat.data)
 
-  
 
   for(let x = 0; x < lisCatArray.length; x++){
     let catAtual = lisCatArray[x].attributes.title
@@ -21,6 +20,7 @@ async function animesCatergoria(resquest,response) {
     y.push({categoria: catAtual , response});
     listAnimePorCat.push(y)
   }
+  console.log(listAnimePorCat)
   response.setHeader('Cache-Control', 's-maxage=10604800', 'stale-while-revalidate')
   response.json({
     listAnimePorCat
