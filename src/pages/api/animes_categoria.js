@@ -20,8 +20,9 @@ async function animesCatergoria(resquest,response) {
     y.push({categoria: catAtual , response});
     listAnimePorCat.push(y)
   }
+  JSON.stringify(listAnimePorCat)
   console.log(listAnimePorCat)
-  response.setHeader('Cache-Control', 's-maxage=6', 'stale-while-revalidate')
+  response.setHeader('Cache-Control', 's-maxage=10604800', 'stale-while-revalidate')
   response.json({
     listAnimePorCat
   })
