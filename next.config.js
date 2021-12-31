@@ -1,3 +1,6 @@
 module.exports = {
-  staticPageGenerationTimeout: 1500,
+  staticPageGenerationTimeout: 3500,
 }
+
+const withImages = require('next-images')
+module.exports = withImages()

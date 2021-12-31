@@ -4,6 +4,7 @@ import Link from 'next/link';;
 import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
+import Loader from '../components/loading'
 // import ListAnimesCat from '../components/listAnimesCat';
 
 import axios from "axios"
@@ -12,6 +13,9 @@ const api = axios.create({
 });
 const apiLocal = axios.create({
   baseURL: 'https://ki-anime.vercel.app/api/'
+});
+const apiLocalDev = axios.create({
+  baseURL: 'http://localhost:3000/api/'
 });
 
 // const api2 = axios.create({
@@ -25,7 +29,6 @@ const HomePage = (props) => {
   let listTreding = props.listTreding.data
   let listAnimesCatAdventure = props.listAnimesCatAdventure.data
   // let listCat = props.listCat
-  let listAnimePorCat = props.listAnimePorCat
 
   
   
@@ -40,6 +43,9 @@ const HomePage = (props) => {
   
   const [info, setInfo] = useState({});
   const [text, setText] = useState('');
+  const [removeLoading, setRemoveLoading] = useState(false);
+  const [listAnimePorCat, setListAnimePorCat] = useState(props.listAnimePorCat.data)
+  const [currentPage, setCurrentPage] = useState(2)
   function clearBusca(){
     setText('');
     setInfo({});
@@ -57,22 +63,40 @@ const HomePage = (props) => {
   //     })
   // },[])
 
-  useEffect(() => {
+  useEffect(async() => {
     if (text) {
-      setInfo({});
+      setInfo({})
       
-      fetch(
-        `${api}anime?filter[text]=${text}&page[limit]=20`
-        )
-        .then((response) => response.json())
-        .then((response) => {
-          setInfo(response);
-        });
+      const response = await api.get(`anime?filter[text]=${text}&page[limit]=20`)
+        
+      setInfo(response.data);
+        
       }
     if(!text) {
       setInfo({});
     }
     }, [text]);
+
+  useEffect(async() => {
+    setRemoveLoading(false)
+    const {data} = await apiLocalDev.get(`animes/categoria/total/${currentPage}`)
+    setListAnimePorCat([...listAnimePorCat,...data.data])
+    console.log(currentPage,listAnimePorCat)
+    setRemoveLoading(true)
+  },[currentPage])
+
+  useEffect(()=> {
+    const intersectionObserver = new IntersectionObserver((entries)=>{
+      if(entries.some((entry) => entry.isIntersecting)){
+        console.log("elemento está visivel")
+        setCurrentPage((currentPageInsideState) => currentPageInsideState + 1)
+      }
+    });
+    console.log("pagina:",currentPage)
+    intersectionObserver.observe(document.querySelector('#sentinela'));
+
+    return () => intersectionObserver.disconnect();
+  },[])
 
   return (
     <div className='App'>
@@ -102,52 +126,60 @@ const HomePage = (props) => {
           </div>
       </div>
         {text && !info.data && <span>Carregando...</span>}
-        {info.data && (
-          <ul className="animesList">
-            {info.data.map((anime) => (
-              <li key={anime.id}>
-                <Link href={`/anime/${anime.id}`} >
-                  <img
-                    className="animePosterList"
-                    src={anime.attributes.posterImage.small}
-                    alt={anime.attributes.canonicalTitle}
-                    />
-                </Link>
-                <Link href={`/anime/${anime.id}`} >
-                  <h4 className="animePosterList">{anime.attributes.canonicalTitle}</h4>
-                </Link>
-                <p>
-                  <FaHeart/> {anime.attributes.favoritesCount}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )    
-        }
+        
         <div className='content'>
+          {info.data && (
+            <ul className="animesList">
+              {info.data.map((anime) => (
+                <li key={anime.id}>
+                  <Link href={`/anime/${anime.id}`} >
+                    <img
+                      className="animePosterList"
+                      src={anime.attributes.posterImage.small}
+                      alt={anime.attributes.canonicalTitle}
+                      />
+                  </Link>
+                  <Link href={`/anime/${anime.id}`} >
+                    <h4 className="animePosterList">{anime.attributes.canonicalTitle}</h4>
+                  </Link>
+                  <p>
+                    <FaHeart/> {anime.attributes.favoritesCount}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )    
+          }
           {
             (!info.data ? 
               (<>
                 <h2> Animes Tredings Top</h2>
-                  <Carousel data={listTreding}/>
+                <Carousel data={listTreding}/>
                 <h2> Animes Aventuras</h2>
-                  <Carousel data={listAnimesCatAdventure}/>    
+                <Carousel data={listAnimesCatAdventure}/>    
+                {
+                  listAnimePorCat.length > 0 ?
+                  listAnimePorCat.map((item)=>{
+                    return(
+                      <>
+                      {
+                        item.animes.length ? <> 
+                        <h2>Animes {item.categoria}</h2>
+                        <Carousel data={item.animes}/>
+                        </> :<> </>
+                      }
+                    </>
+                  )})
+                  : <>{!removeLoading &&<Loader/>}</>
+                }
 
-              </>) : <> </>
+
+              </>) : <>{!removeLoading &&<Loader/>} </>
               
               ) 
           }
-          {/* <ListAnimesCat/> */}
-          {
-            listAnimePorCat.length > 0 ? 
-            listAnimePorCat.map((item)=>{
-              return(
-                <>
-                <h2>{item[0].categoria}</h2>
-                 <Carousel data={item[0].response.data}/>
-              </>
-            )})  : <></>
-          }
+          {!removeLoading &&<Loader/>}
+          <li id="sentinela"/>
         </div>
 
     </div>
@@ -159,13 +191,13 @@ export async function getStaticProps() {
         
     let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
     
-    let listAnimePorCat = await apiLocal.get('animes_categoria')
+    let listAnimePorCat = await apiLocalDev.get(`animes/categoria/total/1`)
 
       return {
         props: {
           listTreding : listTreding.data,
           listAnimesCatAdventure: listAnimesCatAdventure.data,
-          listAnimePorCat: listAnimePorCat.data.listAnimePorCat,
+          listAnimePorCat: listAnimePorCat.data
         }
       }
     

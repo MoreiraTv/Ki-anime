@@ -6,9 +6,10 @@ const api = axios.create({
 
 
 async function categorias(resquest,response){
-  const listCat = await api.get('categories?page[limit]=50[offset]=50')
+  const listCat = await api.get('categories?page[limit]=245[offset]=245')
+
   
-  response.setHeader('Cache-Control', 's-maxage=10', 'stale-while-revalidate')
+  response.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
   response.json( {
     listCat : listCat.data,
   })

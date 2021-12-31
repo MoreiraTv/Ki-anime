@@ -38,7 +38,7 @@ const Carousel = ({data}) => {
       <div className="carouselBox" ref={carouselBoxRef}>
         {data.map((anime, index) => (
           <>
-           <div key={anime.id}>
+           <div id="div-carousel" key={anime.id}>
              <Link href={`/anime/${anime.id}`} >
                   <img
                     className={`img-${index}`}
@@ -46,6 +46,7 @@ const Carousel = ({data}) => {
                     alt={anime.attributes.canonicalTitle}
                     />
                 </Link>
+                  <p class="img__description">{anime.attributes.canonicalTitle}</p>
                 {/* <Link href={`/anime/${anime.id}`} >
                   <h5 className="animePosterList">{anime.attributes.canonicalTitle}</h5>
                 </Link> */}

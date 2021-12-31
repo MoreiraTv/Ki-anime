@@ -9,11 +9,15 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "debug": "4.1",
     "next": "10.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-responsive-carousel": "^3.2.22",
     "react-scroll": "^1.8.4"
+  },
+  "devDependencies": {
+    "next-images": "^1.8.4"
   }
 }
