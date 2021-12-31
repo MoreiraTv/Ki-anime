@@ -45,7 +45,7 @@ const HomePage = (props) => {
   const [info, setInfo] = useState({});
   const [text, setText] = useState('');
   const [removeLoading, setRemoveLoading] = useState(false);
-  const [listAnimePorCat, setListAnimePorCat] = useState(props.listAnimePorCat.data)
+  // const [listAnimePorCat, setListAnimePorCat] = useState(props.listAnimePorCat.data)
   const [currentPage, setCurrentPage] = useState(2)
   function clearBusca(){
     setText('');
@@ -158,7 +158,7 @@ const HomePage = (props) => {
                 <Carousel data={listTreding}/>
                 <h2> Animes Aventuras</h2>
                 <Carousel data={listAnimesCatAdventure}/>    
-                {
+                {/* {
                   listAnimePorCat.length > 0 ?
                   listAnimePorCat.map((item)=>{
                     return(
@@ -172,7 +172,7 @@ const HomePage = (props) => {
                     </>
                   )})
                   : <>{!removeLoading &&<Loader/>}</>
-                }
+                } */}
 
 
               </>) : <>{!removeLoading &&<Loader/>} </>
@@ -198,7 +198,7 @@ export async function getStaticProps() {
         props: {
           listTreding : listTreding.data,
           listAnimesCatAdventure: listAnimesCatAdventure.data,
-          listAnimePorCat: listAnimePorCat.data
+          // listAnimePorCat: listAnimePorCat.data
         }
       }
     
