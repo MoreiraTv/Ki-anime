@@ -3,9 +3,9 @@ import axios from "axios"
 const api = axios.create({
   baseURL: 'https://kitsu.io/api/edge/'
 });
-const apiLocalDev = axios.create({
-  baseURL: 'http://localhost:3000/api/'
-});
+//const apiLocalDev = axios.create({
+//  baseURL: //'http://localhost:3000/api/'
+//});
 
 
 

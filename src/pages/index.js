@@ -14,9 +14,9 @@ const api = axios.create({
 const apiLocal = axios.create({
   baseURL: 'https://ki-anime.vercel.app/api/'
 });
-const apiLocalDev = axios.create({
-  baseURL: 'http://localhost:3000/api/'
-});
+//const apiLocalDev = axios.create({
+//  baseURL: //'http://localhost:3000/api/'
+//});
 
 // const api2 = axios.create({
 //   baseURL: 'https://kitsu.io/api/edge/'
