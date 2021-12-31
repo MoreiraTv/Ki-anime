@@ -14,7 +14,7 @@ async function animesCatergoria(resquest,response) {
   let Array = []
   let Array2 = []
 
-  const listTitle = await apiLocalDev.get("categorias/list")
+  const listTitle = await apiLocal.get("categorias/list")
   // let listTitle = data.list
   // console.log(listTitle.data.list)
   const listLengthP2 = Math.round(listTitle.data.list.length / 3) 

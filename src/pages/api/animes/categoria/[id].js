@@ -14,7 +14,7 @@ async function animesCatergoria(resquest,response) {
   const {id} = resquest.query
   let Array = []
 
-  const listTitle = await apiLocalDev.get("categorias/list")
+  const listTitle = await apiLocal.get("categorias/list")
   // let listTitle = data.list
   // console.log(listTitle.data.list)
   

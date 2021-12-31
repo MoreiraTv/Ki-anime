@@ -10,7 +10,7 @@ const apiLocalDev = axios.create({
 });
 
 async function animesCatergoria(resquest,response) {
-  let {data} = await apiLocalDev.get('categorias')
+  let {data} = await apiLocal.get('categorias')
   let list = [];
   let lisCatArray = Array.from(data.listCat.data)
 

@@ -79,7 +79,7 @@ const HomePage = (props) => {
 
   useEffect(async() => {
     setRemoveLoading(false)
-    const {data} = await apiLocalDev.get(`animes/categoria/total/${currentPage}`)
+    const {data} = await apiLocal.get(`animes/categoria/total/${currentPage}`)
     setListAnimePorCat([...listAnimePorCat,...data.data])
     console.log(currentPage,listAnimePorCat)
     setRemoveLoading(true)
@@ -191,7 +191,7 @@ export async function getStaticProps() {
         
     let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
     
-    let listAnimePorCat = await apiLocalDev.get(`animes/categoria/total/1`)
+    let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
 
       return {
         props: {
