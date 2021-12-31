@@ -8,12 +8,13 @@ import Loader from '../components/loading'
 // import ListAnimesCat from '../components/listAnimesCat';
 
 import axios from "axios"
+
 const api = axios.create({
   baseURL: 'https://kitsu.io/api/edge/'
 });
-const apiLocal = axios.create({
-  baseURL: 'https://ki-anime.vercel.app/api/'
-});
+// const apiLocal = axios.create({
+//   baseURL: 'https://ki-anime.vercel.app/api/'
+// });
 //const apiLocalDev = axios.create({
 //  baseURL: //'http://localhost:3000/api/'
 //});
@@ -77,13 +78,13 @@ const HomePage = (props) => {
     }
     }, [text]);
 
-  useEffect(async() => {
-    setRemoveLoading(false)
-    const {data} = await apiLocal.get(`animes/categoria/total/${currentPage}`)
-    setListAnimePorCat([...listAnimePorCat,...data.data])
-    console.log(currentPage,listAnimePorCat)
-    setRemoveLoading(true)
-  },[currentPage])
+  // useEffect(async() => {
+  //   setRemoveLoading(false)
+  //   const {data} = await apiLocal.get(`animes/categoria/total/${currentPage}`)
+  //   setListAnimePorCat([...listAnimePorCat,...data.data])
+  //   console.log(currentPage,listAnimePorCat)
+  //   setRemoveLoading(true)
+  // },[currentPage])
 
   useEffect(()=> {
     const intersectionObserver = new IntersectionObserver((entries)=>{
@@ -191,7 +192,7 @@ export async function getStaticProps() {
         
     let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
     
-    let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
+    // let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
 
       return {
         props: {
