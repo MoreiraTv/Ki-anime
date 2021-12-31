@@ -12,9 +12,9 @@ import axios from "axios"
 const api = axios.create({
   baseURL: 'https://kitsu.io/api/edge/'
 });
-// const apiLocal = axios.create({
-//   baseURL: 'https://ki-anime.vercel.app/api/'
-// });
+const apiLocal = axios.create({
+  baseURL: 'https://ki-anime.vercel.app/api/'
+});
 //const apiLocalDev = axios.create({
 //  baseURL: //'http://localhost:3000/api/'
 //});
@@ -45,7 +45,7 @@ const HomePage = (props) => {
   const [info, setInfo] = useState({});
   const [text, setText] = useState('');
   const [removeLoading, setRemoveLoading] = useState(false);
-  // const [listAnimePorCat, setListAnimePorCat] = useState(props.listAnimePorCat.data)
+  const [listAnimePorCat, setListAnimePorCat] = useState(props.listAnimePorCat.data)
   const [currentPage, setCurrentPage] = useState(2)
   function clearBusca(){
     setText('');
@@ -78,13 +78,13 @@ const HomePage = (props) => {
     }
     }, [text]);
 
-  // useEffect(async() => {
-  //   setRemoveLoading(false)
-  //   const {data} = await apiLocal.get(`animes/categoria/total/${currentPage}`)
-  //   setListAnimePorCat([...listAnimePorCat,...data.data])
-  //   console.log(currentPage,listAnimePorCat)
-  //   setRemoveLoading(true)
-  // },[currentPage])
+  useEffect(async() => {
+    setRemoveLoading(false)
+    const {data} = await apiLocal.get(`animes/categoria/total/${currentPage}`)
+    setListAnimePorCat([...listAnimePorCat,...data.data])
+    console.log(currentPage,listAnimePorCat)
+    setRemoveLoading(true)
+  },[currentPage])
 
   useEffect(()=> {
     const intersectionObserver = new IntersectionObserver((entries)=>{
@@ -158,7 +158,7 @@ const HomePage = (props) => {
                 <Carousel data={listTreding}/>
                 <h2> Animes Aventuras</h2>
                 <Carousel data={listAnimesCatAdventure}/>    
-                {/* {
+                {
                   listAnimePorCat.length > 0 ?
                   listAnimePorCat.map((item)=>{
                     return(
@@ -172,7 +172,7 @@ const HomePage = (props) => {
                     </>
                   )})
                   : <>{!removeLoading &&<Loader/>}</>
-                } */}
+                }
 
 
               </>) : <>{!removeLoading &&<Loader/>} </>
@@ -192,13 +192,13 @@ export async function getStaticProps() {
         
     let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
     
-    // let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
+    let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
 
       return {
         props: {
           listTreding : listTreding.data,
           listAnimesCatAdventure: listAnimesCatAdventure.data,
-          // listAnimePorCat: listAnimePorCat.data
+          listAnimePorCat: listAnimePorCat.data
         }
       }
     
