@@ -5,6 +5,7 @@ import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
 import Loader from '../components/loading'
+import Head from 'next/head';
 // import ListAnimesCat from '../components/listAnimesCat';
 
 import axios from "axios"
@@ -100,6 +101,11 @@ const HomePage = (props) => {
   },[])
 
   return (
+    <>
+      <Head>
+        <title>Ki-Anime</title>
+        <meta name="google-site-verification" content="er8mBaBfB8XxvDOyTiBqQ8eNqryP2HfPAyG7DdWeNS0" />
+      </Head>
     <div className='App'>
       <div className="top-site">
         {info.data ? (
@@ -110,7 +116,7 @@ const HomePage = (props) => {
             <h1 className="title">Ki-Anime</h1>
           </a>
           ) : (
-          <Link href="/">
+            <Link href="/">
             <h1 className="title">Ki-Anime</h1>
           </Link>
           )}
@@ -123,7 +129,7 @@ const HomePage = (props) => {
               setInput={setText}
               value={text}
               onChange={(search) => setText(search)}
-            />
+              />
           </div>
       </div>
         {text && !info.data && <span>Carregando...</span>}
@@ -178,30 +184,31 @@ const HomePage = (props) => {
               </>) : <>{!removeLoading &&<Loader/>} </>
               
               ) 
-          }
+            }
           {!removeLoading &&<Loader/>}
           <li id="sentinela"/>
         </div>
 
     </div>
+    </>
   )
 }
 
 export async function getStaticProps() {
-    let listTreding = await api.get(`trending/anime`)
-        
-    let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
-    
-    let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
-
-      return {
-        props: {
-          listTreding : listTreding.data,
-          listAnimesCatAdventure: listAnimesCatAdventure.data,
-          listAnimePorCat: listAnimePorCat.data
-        }
-      }
-    
+  let listTreding = await api.get(`trending/anime`)
+  
+  let listAnimesCatAdventure = await api.get(`anime?filter[categories]=adventure$&page[limit]=20`)
+  
+  let listAnimePorCat = await apiLocal.get(`animes/categoria/total/1`)
+  
+  return {
+    props: {
+      listTreding : listTreding.data,
+      listAnimesCatAdventure: listAnimesCatAdventure.data,
+      listAnimePorCat: listAnimePorCat.data
+    }
+  }
+  
 }
 
 export default HomePage
