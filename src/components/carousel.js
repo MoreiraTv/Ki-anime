@@ -3,8 +3,6 @@ import {useRef, useState} from 'react';
 import ArrowLeft from '../img/arrow-left.svg';
 import ArrowRight from '../img/arrow-right.svg';
 
-// const api = 'https://kitsu.io/api/edge/';
-
 
 const Carousel = ({data}) => {
   

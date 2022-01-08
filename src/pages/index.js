@@ -18,14 +18,6 @@ const api = axios.create({
 const apiLocal = axios.create({
   baseURL: process.env.API_KI_ANIME
 });
-//const apiLocalDev = axios.create({
-//  baseURL: //'http://localhost:3000/api/'
-//});
-
-// const api2 = axios.create({
-//   baseURL: 'https://kitsu.io/api/edge/'
-// });
-
 
 
 const HomePage = (props) => {
@@ -63,15 +55,11 @@ const HomePage = (props) => {
       // const url = info.links.next.slice(26)
       //26
       const {data} = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
-      // (currentPageInsideState) => currentPageInsideState + 1
-      // console.log([info.data.concat(data.data), data.links])
       setInfo((x) =>  x = {data: x.data.concat(data.data)});
-      // setInfo(info.links = data.links);
-      // console.log(info)
       setRemoveLoadingPesq(true)
       }
     if(!text) {
-      setInfo([]);
+      setInfo({});
       setCurrentPageOffset(0)
     }
 
