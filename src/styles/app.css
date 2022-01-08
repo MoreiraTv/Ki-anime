@@ -12,11 +12,53 @@ body{
 }
 
 .top-site{
-  margin-top: 3vh;
-  padding: 3vh;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  padding-bottom: 3vh;
+}
+.div-logo-site{
+  align-items: center;
+  justify-content: center;
+  background-color: #C4C4C4;
+  margin: 0;
+}
+.logo{
+  width: 7.8128vw;
+  cursor: pointer;
 }
 .content-search{
+  background-color: #676767;
+  align-items: center;
+  align-content: center;
   padding: 2vh;
+}
+.input-Search{
+  width: 350px;
+  height: 40px;
+  background-color: #FFFFFF;
+  outline-color: #414141;
+  border-color: #414141;
+  border-radius: 20px;
+}
+.submit-line {
+  display: inline-flex;
+  width: 350px;
+}
+
+.submit-line input {
+  width: 100%;
+  text-align: left;
+  padding: 15px;
+}
+.btn-Search{
+  position: relative;
+  left: -40px;
+  top: 5px;
+  z-index:10;
+  border:none;
+  background:transparent;
+  outline:none;
 }
 
 .title{
@@ -43,6 +85,7 @@ body{
 }
 
 .animeDetail {
+  align-content: center;
   display: grid;
   grid-template-columns: 1fr 1fr;
   list-style: none;
@@ -91,7 +134,7 @@ body{
 }
 
 .carouselBox {
-  min-height: 250px;
+  min-height: 280px;
   width: auto;
   overflow: hidden;
   white-space: nowrap;
@@ -111,12 +154,18 @@ body{
   margin: 5px 10px;
   cursor: pointer;
   transition: 0.5s ease;
-  z-index: 2;
-}
-
-.carouselBox img:hover{
-  transform: scale(1.4);
   z-index: 5;
+}
+#arrow-carrousel{
+  position: relative;
+  left: -4px;
+  min-width: 35px;
+  max-width: 35px;
+  height: 35px;
+}
+.carouselBox img:hover{
+  transform: scale(1.25);
+  z-index: 1;
 }
 .content{
   align-items: center;
@@ -132,10 +181,15 @@ body{
   height: 10px;
   visibility: hidden;
 }
+#sentinela2 {
+  width: 100%;
+  height: 10px;
+  visibility: hidden;
+}
 
 .img__description {
+  margin: 5px 10px;
   position: relative;
-  justify-content: center;
   max-width: 147px;
   min-width: 147px;
   color: #fff;
@@ -147,7 +201,13 @@ body{
   transition: opacity .2s, visibility .2s;
 }
 
-#div-carousel:hover .img__description {
+.div-carousel{
+  align-items: center;
+  align-content: center;
+  min-height: 200px;
+}
+
+.div-carousel:hover .img__description {
   visibility: visible;
   opacity: 1;
 }
@@ -162,4 +222,41 @@ body{
 
 .loader {
   width: 50px;
+}
+
+.titleAnimeDetail{
+  font-family: 'Vujahday Script', cursive;
+  font-size: 42px;
+  padding: 1vw;
+}
+.favAnimeDetail{
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  padding-top: 1vw;
+  padding-bottom: 0.2vw;
+}
+.epAnimeDetail{
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  padding-bottom: 1vw;
+}
+.descriptionAnimeDetail{
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  padding-top: 1vw;
+  padding-right: 1vw;
+  padding-left: 1vw;
+}
+.ul-animeDetail{
+  width: 100%;
+}
+.animeContentBottom{
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  padding-bottom: 3vw;
+}
+.iframe-youtube{
+  align-content: center;
+  align-items: center;
 }

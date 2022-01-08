@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import Link from 'next/link';;
+import Link from 'next/link';
+import Head from 'next/head';
 import SearchInput from '../../components/SearchInput';
+
+import Logo from '../../img/1-transparente.webp';
 
 const api = 'https://kitsu.io/api/edge/';
 
@@ -23,9 +26,6 @@ export async function getStaticProps(context) {
     `${api}anime?filter[id]=${id}`
   )
     .then((response) => response.json())
-    // .then((response) => {
-    // });
-    // console.log(anime.data)
     return {
       props: {
         anime: anime.data,
@@ -34,30 +34,28 @@ export async function getStaticProps(context) {
 }
 
 export default function id(props){
-  const [text, setText] = useState('');
 
   return (
     <>
+    <Head>
+      <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+      <link href="https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap" rel="stylesheet"/>
+    </Head>
     <div>
       <div className="App">
       <div className="top-site">
        
-          <Link href="/">
-            <h1 className="title">Ki-Anime</h1>
-          </Link>
-
-          <div className='content-search'>
-
-            <SearchInput
-              setInput={setText}
-              value={text}
-              onChange={(search) => setText(search)}
-            />
+          <div className='div-logo-site'>
+              <Link href="/">
+                <img src={Logo} alt="Ki-Anime" className='logo'/>
+              </Link>
           </div>
+
       </div>
         <div className="animeDetail">
 
-            <ul className="animesList">
+            <ul className="ul-animeDetail">
               {props.anime.map((anime) => (
                 <li key={anime.id}>
                   <img
@@ -71,40 +69,41 @@ export default function id(props){
             <ul className="animesList">
               {props.anime.map((anime) => (
                 <li key={anime.id}>
-                  <h2>{anime.attributes.canonicalTitle}</h2>
-                  <p>
+                  <h2 className='titleAnimeDetail'>{anime.attributes.canonicalTitle}</h2>
+                  <p className='favAnimeDetail'>
                     Favoritos: {anime.attributes.favoritesCount}
                   </p>
-                  <p>
+                  <p className='epAnimeDetail'>
                     Episodios: {anime.attributes.episodeCount}
                   </p>
-                  <p>
+                  <p className='descriptionAnimeDetail'>
                     {anime.attributes.description}
                   </p>
-                  {anime.attributes.youtubeVideoId ? (
-                    <>
-                      <p>
-                        <iframe 
-                        width="560" 
-                        height="315" 
-                        src={`https://www.youtube.com/embed/${anime.attributes.youtubeVideoId}`}
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen></iframe>
-                      </p>
-                      <a href={`https://www.youtube.com/watch?v=${anime.attributes.youtubeVideoId}`}>
-                        Caso o video não reproduzir tente por aqui!
-                      </a>
-                    </>
-                  ) : <></>}
-                  
-
-                  
                 </li>
               ))}
             </ul>
           </div>
+        </div>
+        <div className="animeContentBottom">
+          {props.anime[0].attributes.youtubeVideoId ? (
+            <>
+              <p align="center">
+                <div className='iframe-youtube'>
+                    <iframe 
+                    width="560" 
+                    height="315" 
+                    src={`https://www.youtube.com/embed/${props.anime[0].attributes.youtubeVideoId}`}
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>              
+                </div>
+              <a href={`https://www.youtube.com/watch?v=${props.anime[0].attributes.youtubeVideoId}`}>
+                Caso o video não reproduzir tente por aqui!
+              </a>
+              </p>
+            </>
+          ) : <></>}
         </div>
     </div>
     </>

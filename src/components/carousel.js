@@ -1,5 +1,7 @@
 import Link from 'next/link';;
 import {useRef, useState} from 'react';
+import ArrowLeft from '../img/arrow-left.svg';
+import ArrowRight from '../img/arrow-right.svg';
 
 // const api = 'https://kitsu.io/api/edge/';
 
@@ -38,7 +40,7 @@ const Carousel = ({data}) => {
       <div className="carouselBox" ref={carouselBoxRef}>
         {data.map((anime, index) => (
           <>
-           <div id="div-carousel" key={anime.id}>
+           <div className="div-carousel" key={anime.id}>
              <Link href={`/anime/${anime.id}`} >
                   <img
                     className={`img-${index}`}
@@ -46,18 +48,18 @@ const Carousel = ({data}) => {
                     alt={anime.attributes.canonicalTitle}
                     />
                 </Link>
-                  <p class="img__description">{anime.attributes.canonicalTitle}</p>
+                  <p className="img__description">{anime.attributes.canonicalTitle}</p>
                 {/* <Link href={`/anime/${anime.id}`} >
                   <h5 className="animePosterList">{anime.attributes.canonicalTitle}</h5>
                 </Link> */}
-              </div>
+            </div>
           </>
           ))}
           
       </div>
-      <a className="switchLeft sliderButton" onClick={sliderScrollLeft}>&lt;</a>
+      <a className="switchLeft sliderButton" onClick={sliderScrollLeft}><img src={ArrowLeft} id='arrow-carrousel' alt="" /></a>
     
-      <a className="switchRight sliderButton" onClick={sliderScrollRight}>&gt;</a>
+      <a className="switchRight sliderButton" onClick={sliderScrollRight}><img src={ArrowRight} id='arrow-carrousel' alt="" /></a>
       
     </div>
   </div>

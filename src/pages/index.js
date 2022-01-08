@@ -5,16 +5,18 @@ import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
 import Loader from '../components/loading'
+import Logo from '../img/1-transparente.webp';
 import Head from 'next/head';
-// import ListAnimesCat from '../components/listAnimesCat';
+
 
 import axios from "axios"
 
 const api = axios.create({
   baseURL: 'https://kitsu.io/api/edge/'
 });
+//'https://ki-anime.vercel.app/api/'
 const apiLocal = axios.create({
-  baseURL: 'https://ki-anime.vercel.app/api/'
+  baseURL: process.env.API_KI_ANIME
 });
 //const apiLocalDev = axios.create({
 //  baseURL: //'http://localhost:3000/api/'
@@ -30,99 +32,111 @@ const HomePage = (props) => {
 
   let listTreding = props.listTreding.data
   let listAnimesCatAdventure = props.listAnimesCatAdventure.data
-  // let listCat = props.listCat
-
-  
-  
-  // console.log(animesCat,"animes de categoria")
-  // console.log(listCat, "listaCategoria")
-  
-  //const inputSearchRef = useRef();
-  
-  // useLayoutEffect(()=> {
-  //   console.log(inputSearchRef.current);
-  // })
   
   const [info, setInfo] = useState({});
   const [text, setText] = useState('');
   const [removeLoading, setRemoveLoading] = useState(false);
+  const [removeLoadingPesq, setRemoveLoadingPesq] = useState(false);
   const [listAnimePorCat, setListAnimePorCat] = useState(props.listAnimePorCat.data)
   const [currentPage, setCurrentPage] = useState(2)
+  const [currentPageOffset, setCurrentPageOffset] = useState(0)
   function clearBusca(){
     setText('');
     setInfo({});
   }
-  // useEffect(async ()=>{
-  //   await listCat.forEach(async function(cat) {
-  //     let x = listAnimesCat;
-  //     let catAtual = cat.attributes.title
-  //     const resp = await api2.get(`anime?filter[categories]=${catAtual}$&page[limit]=10`)
-  //     const response = resp.data
-  //     const y = Array.from(response)
-  //     y.push({categoria: catAtual , response});
-  //     x.push(y)
-  //     setListAnimesCat(x);
-  //     })
-  // },[])
+  
 
   useEffect(async() => {
     if (text) {
       setInfo({})
-      
-      const response = await api.get(`anime?filter[text]=${text}&page[limit]=20`)
-        
-      setInfo(response.data);
-        
+      const response = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
+      setInfo({data: response.data.data});
+      setRemoveLoadingPesq(true)
       }
     if(!text) {
       setInfo({});
     }
     }, [text]);
+  useEffect(async( ) => {
+    if (text && info.data) {
+      setRemoveLoading(false)
+      // const url = info.links.next.slice(26)
+      //26
+      const {data} = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
+      // (currentPageInsideState) => currentPageInsideState + 1
+      // console.log([info.data.concat(data.data), data.links])
+      setInfo((x) =>  x = {data: x.data.concat(data.data)});
+      // setInfo(info.links = data.links);
+      // console.log(info)
+      setRemoveLoadingPesq(true)
+      }
+    if(!text) {
+      setInfo([]);
+      setCurrentPageOffset(0)
+    }
+
+  },[currentPageOffset])
 
   useEffect(async() => {
-    setRemoveLoading(false)
-    const {data} = await apiLocal.get(`animes/categoria/total/${currentPage}`)
-    setListAnimePorCat([...listAnimePorCat,...data.data])
-    console.log(currentPage,listAnimePorCat)
-    setRemoveLoading(true)
+    if(!text && !info.data){
+      setRemoveLoading(false)
+      const {data} = await apiLocal.get(`/api/animes/categoria/total/${currentPage}`)
+      setListAnimePorCat([...listAnimePorCat,...data.data])
+      setRemoveLoading(true)
+    }
   },[currentPage])
 
   useEffect(()=> {
-    const intersectionObserver = new IntersectionObserver((entries)=>{
-      if(entries.some((entry) => entry.isIntersecting)){
-        console.log("elemento está visivel")
-        setCurrentPage((currentPageInsideState) => currentPageInsideState + 1)
+    if(text && info.data){
+      const intersectionObserverSearch = new IntersectionObserver((entries)=>{
+        if(entries.some((entry) => entry.isIntersecting)){
+            setCurrentPageOffset((currentPageInsideState) => currentPageInsideState + 20)
+          }
+        });
+        intersectionObserverSearch.observe(document.querySelector('#sentinela2'));
+        
+        return () => intersectionObserverSearch.disconnect();
       }
-    });
-    console.log("pagina:",currentPage)
-    intersectionObserver.observe(document.querySelector('#sentinela'));
+  },[info.data])
 
-    return () => intersectionObserver.disconnect();
+  useEffect(()=> {
+    if(!text && !info.data){
+      const intersectionObserver = new IntersectionObserver((entries)=>{
+        if(entries.some((entry) => entry.isIntersecting)){
+          setCurrentPage((currentPageInsideState) => currentPageInsideState + 1)
+        }
+      });
+      intersectionObserver.observe(document.querySelector('#sentinela'));
+  
+      return () => intersectionObserver.disconnect();
+    }
   },[])
 
   return (
     <>
       <Head>
-        <title>Ki-Anime</title>
         <meta name="google-site-verification" content="er8mBaBfB8XxvDOyTiBqQ8eNqryP2HfPAyG7DdWeNS0" />
       </Head>
     <div className='App'>
       <div className="top-site">
         {info.data ? (
-          // <Link >
-          //   <h1 className={title}>Ki-Anime</h1>
-          // </Link>
-          <a onClick={() => clearBusca()} className="aNone">
-            <h1 className="title">Ki-Anime</h1>
-          </a>
+          <div className='div-logo-site'>
+            <a onClick={() => clearBusca()} className="aNone">
+              <Link href="/">
+                <img src={Logo} alt="Ki-Anime" className='logo' />
+              </Link>
+            </a>
+          </div>
           ) : (
-            <Link href="/">
-            <h1 className="title">Ki-Anime</h1>
-          </Link>
+          <div className='div-logo-site'>
+            <a onClick={() => clearBusca()} className="aNone">
+              <Link href="/">
+                <img src={Logo} alt="Ki-Anime" className='logo'/>
+              </Link>
+            </a>
+          </div>
           )}
-          {/* <Link href="/">
-            <h1 className={title}>Ki-Anime</h1>
-          </Link> */}
+         
           <div className='content-search'>
 
             <SearchInput
@@ -171,22 +185,29 @@ const HomePage = (props) => {
                       <>
                       {
                         item.animes.length ? <> 
-                        <h2>Animes {item.categoria}</h2>
+                        <h2 key={item.categoria}>Animes {item.categoria}</h2>
                         <Carousel data={item.animes}/>
                         </> :<> </>
                       }
                     </>
                   )})
-                  : <>{!removeLoading &&<Loader/>}</>
+                  : <></>
                 }
+              {!removeLoading &&<Loader/>}
 
-
-              </>) : <>{!removeLoading &&<Loader/>} </>
+              </>) : <></>
               
               ) 
             }
-          {!removeLoading &&<Loader/>}
+            {
+              info.data ? <>
+              {!removeLoadingPesq &&<Loader/>}
+              </> 
+              :<></>
+            }
+          
           <li id="sentinela"/>
+          <li id="sentinela2"/>
         </div>
 
     </div>
