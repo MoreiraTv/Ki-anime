@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import SearchInput from '../../components/SearchInput';
 
-import Logo from '../../img/1-transparente.webp';
+import Logo from '../../img/1-Transparente.webp';
 
 const api = 'https://kitsu.io/api/edge/';
 

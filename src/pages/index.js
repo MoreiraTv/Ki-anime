@@ -5,7 +5,7 @@ import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
 import Loader from '../components/loading'
-import Logo from '../img/1-transparente.webp';
+import Logo from '../img/1-Transparente.webp';
 import Head from 'next/head';
 
 
