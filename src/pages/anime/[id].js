@@ -54,15 +54,20 @@ export default function id(props){
 
       </div>
         <div >
-          <div style={{
-          width: '100%',
-          height: '80%',
-          marginTop: '-29px',
-          position: `absolute`,
-          zIndex: -1,
-          backgroundImage: `url(${props.anime[0].attributes.coverImage.large})`,
-          opacity: '0.5'
-          }}/>
+          {
+            props.anime[0].attributes.coverImage ? <>
+
+              <div style={{
+              width: '100%',
+              height: '80%',
+              marginTop: '-29px',
+              position: `absolute`,
+              zIndex: -1,
+              backgroundImage: `url(${props.anime[0].attributes.coverImage.large})`,
+              opacity: '0.5'
+              }}/>
+            </> : <></>
+          }
           {/* <img src={`${props.anime[0].attributes.coverImage.large}`} 
           style={{
             backgroundImage: `url(${props.anime[0].attributes.coverImage.large})`,
