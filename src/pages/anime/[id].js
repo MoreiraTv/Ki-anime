@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import SearchInput from '../../components/SearchInput';
 
-import Logo from '../../img/1-Transparente.webp';
+import Logo from '../../img/1_transparente.webp';
 
 const api = 'https://kitsu.io/api/edge/';
 
@@ -53,35 +53,54 @@ export default function id(props){
           </div>
 
       </div>
-        <div className="animeDetail">
+        <div >
+          <div style={{
+          width: '100%',
+          height: '80%',
+          marginTop: '-29px',
+          position: `absolute`,
+          zIndex: -1,
+          backgroundImage: `url(${props.anime[0].attributes.coverImage.large})`,
+          opacity: '0.5'
+          }}/>
+          {/* <img src={`${props.anime[0].attributes.coverImage.large}`} 
+          style={{
+            backgroundImage: `url(${props.anime[0].attributes.coverImage.large})`,
+            opacity: '0.6'
+            }}
+          alt="" /> */}
 
+          {/* {console.log(props.anime[0].coverImage.large)} */}
+          <div className="animeDetail">
             <ul className="ul-animeDetail">
-              {props.anime.map((anime) => (
-                <li key={anime.id}>
-                  <img
-                    className="animePosterList"
-                    src={anime.attributes.posterImage.small}
-                    alt={anime.attributes.canonicalTitle}
-                    />
-                </li>
-              ))}
-            </ul>
-            <ul className="animesList">
-              {props.anime.map((anime) => (
-                <li key={anime.id}>
-                  <h2 className='titleAnimeDetail'>{anime.attributes.canonicalTitle}</h2>
-                  <p className='favAnimeDetail'>
-                    Favoritos: {anime.attributes.favoritesCount}
-                  </p>
-                  <p className='epAnimeDetail'>
-                    Episodios: {anime.attributes.episodeCount}
-                  </p>
-                  <p className='descriptionAnimeDetail'>
-                    {anime.attributes.description}
-                  </p>
-                </li>
-              ))}
-            </ul>
+                {props.anime.map((anime) => (
+                  <li key={anime.id}>
+                    <img
+                      className="animePosterList"
+                      src={anime.attributes.posterImage.small}
+                      alt={anime.attributes.canonicalTitle}
+                      />
+                  </li>
+                ))}
+              </ul>
+              <ul className="animesList">
+                {props.anime.map((anime) => (
+                  <li key={anime.id}>
+                    <h2 className='titleAnimeDetail'>{anime.attributes.canonicalTitle}</h2>
+                    <p className='favAnimeDetail'>
+                      Favoritos: {anime.attributes.favoritesCount}
+                    </p>
+                    <p className='epAnimeDetail'>
+                      Episodios: {anime.attributes.episodeCount}
+                    </p>
+                    <p className='descriptionAnimeDetail'>
+                      {anime.attributes.description}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+          </div>
+            
           </div>
         </div>
         <div className="animeContentBottom">

@@ -5,7 +5,7 @@ import SearchInput from '../components/SearchInput';
 import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
 import Loader from '../components/loading'
-import Logo from '../img/1-Transparente.webp';
+import Logo from '../img/1_transparente.webp';
 import Head from 'next/head';
 
 
@@ -49,43 +49,45 @@ const HomePage = (props) => {
       setInfo({});
     }
     }, [text]);
-  useEffect(async( ) => {
-    if (text && info.data) {
-      setRemoveLoading(false)
-      // const url = info.links.next.slice(26)
-      //26
-      const {data} = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
-      setInfo((x) =>  x = {data: x.data.concat(data.data)});
-      setRemoveLoadingPesq(true)
-      }
-    if(!text) {
-      setInfo({});
-      setCurrentPageOffset(0)
-    }
 
-  },[currentPageOffset])
+  // useEffect(async( ) => {
+  //   if (text && info.data) {
+  //     setRemoveLoading(false)
+  //     // const url = info.links.next.slice(26)
+  //     //26
+  //     const {data} = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
+  //     setInfo((x) =>  x = {data: x.data.concat(data.data)});
+  //     setRemoveLoadingPesq(true)
+  //     }
+  //   if(!text) {
+  //     setInfo({});
+  //     setCurrentPageOffset(0)
+  //   }
+
+  // },[currentPageOffset])
 
   useEffect(async() => {
     if(!text && !info.data){
       setRemoveLoading(false)
       const {data} = await apiLocal.get(`/api/animes/categoria/total/${currentPage}`)
-      setListAnimePorCat([...listAnimePorCat,...data.data])
+      setListAnimePorCat(data.data)
+      // setListAnimePorCat([...listAnimePorCat,... data.data])
       setRemoveLoading(true)
     }
   },[currentPage])
 
-  useEffect(()=> {
-    if(text && info.data){
-      const intersectionObserverSearch = new IntersectionObserver((entries)=>{
-        if(entries.some((entry) => entry.isIntersecting)){
-            setCurrentPageOffset((currentPageInsideState) => currentPageInsideState + 20)
-          }
-        });
-        intersectionObserverSearch.observe(document.querySelector('#sentinela2'));
+  // useEffect(()=> {
+  //   if(text && info.data){
+  //     const intersectionObserverSearch = new IntersectionObserver((entries)=>{
+  //       if(entries.some((entry) => entry.isIntersecting)){
+  //           setCurrentPageOffset((currentPageInsideState) => currentPageInsideState + 20)
+  //         }
+  //       });
+  //       intersectionObserverSearch.observe(document.querySelector('#sentinela2'));
         
-        return () => intersectionObserverSearch.disconnect();
-      }
-  },[info.data])
+  //       return () => intersectionObserverSearch.disconnect();
+  //     }
+  // },[info.data])
 
   useEffect(()=> {
     if(!text && !info.data){
