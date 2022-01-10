@@ -76,18 +76,18 @@ const HomePage = (props) => {
     }
   },[currentPage])
 
-  // useEffect(()=> {
-  //   if(text && info.data){
-  //     const intersectionObserverSearch = new IntersectionObserver((entries)=>{
-  //       if(entries.some((entry) => entry.isIntersecting)){
-  //           setCurrentPageOffset((currentPageInsideState) => currentPageInsideState + 20)
-  //         }
-  //       });
-  //       intersectionObserverSearch.observe(document.querySelector('#sentinela2'));
+  useEffect(()=> {
+    if(text && info.data){
+      const intersectionObserverSearch = new IntersectionObserver((entries)=>{
+        if(entries.some((entry) => entry.isIntersecting)){
+            setCurrentPageOffset((currentPageInsideState) => currentPageInsideState + 20)
+          }
+        });
+        intersectionObserverSearch.observe(document.querySelector('#sentinela2'));
         
-  //       return () => intersectionObserverSearch.disconnect();
-  //     }
-  // },[info.data])
+        return () => intersectionObserverSearch.disconnect();
+      }
+  },[info.data])
 
   useEffect(()=> {
     if(!text && !info.data){
