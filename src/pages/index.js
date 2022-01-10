@@ -70,8 +70,8 @@ const HomePage = (props) => {
     if(!text && !info.data){
       setRemoveLoading(false)
       const {data} = await apiLocal.get(`/api/animes/categoria/total/${currentPage}`)
-      setListAnimePorCat(data.data)
-      // setListAnimePorCat([...listAnimePorCat,... data.data])
+      // setListAnimePorCat(data.data)
+      setListAnimePorCat([...listAnimePorCat,...data.data])
       setRemoveLoading(true)
     }
   },[currentPage])
