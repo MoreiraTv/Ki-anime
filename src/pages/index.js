@@ -50,21 +50,21 @@ const HomePage = (props) => {
     }
     }, [text]);
 
-  // useEffect(async( ) => {
-  //   if (text && info.data) {
-  //     setRemoveLoading(false)
-  //     // const url = info.links.next.slice(26)
-  //     //26
-  //     const {data} = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
-  //     setInfo((x) =>  x = {data: x.data.concat(data.data)});
-  //     setRemoveLoadingPesq(true)
-  //     }
-  //   if(!text) {
-  //     setInfo({});
-  //     setCurrentPageOffset(0)
-  //   }
+  useEffect(async( ) => {
+    if (text && info.data) {
+      setRemoveLoading(false)
+      // const url = info.links.next.slice(26)
+      //26
+      const {data} = await api.get(`anime?filter[text]=${text}&page[limit]=20&page[offset]=${currentPageOffset}`)
+      setInfo((x) =>  x = {data: x.data.concat(data.data)});
+      setRemoveLoadingPesq(true)
+      }
+    if(!text) {
+      setInfo({});
+      setCurrentPageOffset(0)
+    }
 
-  // },[currentPageOffset])
+  },[currentPageOffset])
 
   useEffect(async() => {
     if(!text && !info.data){
