@@ -6,6 +6,9 @@ const apiLocal = axios.create({
   baseURL: process.env.API_KI_ANIME
 });
 
+interface Data {
+  animes?: Array<any>;
+}
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Method to source urls from cms
@@ -16,11 +19,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   console.log("tamanho do array", arrayData.length);
   let array = [
     {
-      loc: `https://ki-anime.vercel.app/`, 
+      loc: `https://ki-anime.vercel.app/`,
       lastmod: new Date().toISOString(),
     }
   ]
-  arrayData.map((  data  )=>{
+  arrayData.map((  data: Data  )=>{
     for(let x = 0; x < data.animes.length; x++){
       array = [...array,{
         loc: `https://ki-anime.vercel.app/anime/${data.animes[x].id}`, 
@@ -35,7 +38,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     //   }
     // ))
   })
-  console.log(array)
   const fields = array
     // {
     //   loc: 'https://ki-anime.vercel.app', // Absolute url
