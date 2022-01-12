@@ -1,10 +1,9 @@
 import {NextSeo} from 'next-seo'
 
 function pageSeo({title,description, children, path }){
+  let url = `https://ki-anime.vercel.app`
   if(path){
-    let url = `https://ki-anime.vercel.app${path}`
-  }else{
-    let url = `https://ki-anime.vercel.app`
+    url = `https://ki-anime.vercel.app${path}`
   }
   
   return(
