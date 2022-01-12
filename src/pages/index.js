@@ -105,7 +105,11 @@ const HomePage = (props) => {
   return (
     <>
     <div className='App'>
-      <PageSeo title="Ki-Anime" description="Aqui você encontra o anime perfeito para você, um site para encontrar animes do seu gosto"/>
+      <PageSeo 
+      title="Ki-Anime" 
+      description="Aqui você encontra o anime perfeito para você, um site para encontrar animes do seu gosto"
+      path='/'
+      />
       <div className="top-site">
         {info.data ? (
           <div className='div-logo-site'>
