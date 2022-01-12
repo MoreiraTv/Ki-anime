@@ -6,7 +6,7 @@ import Carousel from '../components/carousel';
 import {FaHeart } from 'react-icons/fa';
 import Loader from '../components/loading'
 import Logo from '../img/1_transparente.webp';
-import Head from 'next/head';
+import PageSeo from '../components/pageSeo';
 
 
 import axios from "axios"
@@ -104,10 +104,8 @@ const HomePage = (props) => {
 
   return (
     <>
-      <Head>
-        <meta name="google-site-verification" content="er8mBaBfB8XxvDOyTiBqQ8eNqryP2HfPAyG7DdWeNS0" />
-      </Head>
     <div className='App'>
+      <PageSeo title="Ki-Anime" description="Aqui você encontra o anime perfeito para você, um site para encontrar animes do seu gosto"/>
       <div className="top-site">
         {info.data ? (
           <div className='div-logo-site'>

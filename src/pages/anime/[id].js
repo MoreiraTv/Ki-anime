@@ -1,7 +1,8 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import SearchInput from '../../components/SearchInput';
+// import SearchInput from '../../components/SearchInput';
+import PageSeo from '../../components/pageSeo';
 
 import Logo from '../../img/1_transparente.webp';
 
@@ -42,6 +43,16 @@ export default function id(props){
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
       <link href="https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap" rel="stylesheet"/>
     </Head>
+    {
+      props.anime[0].attributes.description ?
+      <PageSeo title={`${props.anime[0].attributes.canonicalTitle} / Ki-Anime`} 
+      description={props.anime[0].attributes.description}
+      path={`/anime/${props.anime[0].id}`}
+      />
+      : <PageSeo title={props.anime[0].attributes.canonicalTitle}
+          path={`/anime/${props.anime[0].id}`}
+        />
+    }
     <div>
       <div className="App">
       <div className="top-site">
@@ -113,14 +124,15 @@ export default function id(props){
             <>
               <p align="center">
                 <div className='iframe-youtube'>
-                    <iframe 
-                    width="560" 
+                    <iframe
+                    id="player"
+                    width="720" 
                     height="315" 
                     src={`https://www.youtube.com/embed/${props.anime[0].attributes.youtubeVideoId}`}
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>              
+                    allowFullScreen='allowFullScreen'></iframe>              
                 </div>
               <a href={`https://www.youtube.com/watch?v=${props.anime[0].attributes.youtubeVideoId}`}>
                 Caso o video não reproduzir tente por aqui!

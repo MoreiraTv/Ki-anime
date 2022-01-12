@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "http://localhost:3000" || "https://ki-anime.vercel.app/",
+  siteUrl: "https://ki-anime.vercel.app/",
   generateRobotsTxt: true,
   priority: null,
   changefreq: null,
@@ -7,7 +7,7 @@ module.exports = {
   exclude: ['/server-sitemap.xml', '/post/*', '/anime/*'],
   robotsTxtOptions: {
     additionalSitemaps: [
-      'http://localhost:3000/server-sitemap.xml', // <==== Add here
+      'https://ki-anime.vercel.app/server-sitemap.xml', // <==== Add here
     ],
   },
 }

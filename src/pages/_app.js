@@ -1,14 +1,11 @@
 import '../styles/app.css';
-import Head from 'next/head';
+import {DefaultSeo} from 'next-seo'
+import SEO from '../../next-seo-config';
 
 export default function MyApp({Component, pageProps}) {
   return (
     <>
-      <Head>
-        <title>Ki-Anime</title>
-        <link rel="Favicon Ki-Anime" href="/static/favicon.ico" />
-      </Head>
-      
+      <DefaultSeo {...SEO}/>
       <Component {...pageProps}/>
     </>
   )

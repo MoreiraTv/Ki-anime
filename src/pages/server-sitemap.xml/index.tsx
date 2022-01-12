@@ -13,17 +13,30 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let {data} = await apiLocal.get(`animes/categoria/total/1`)
   const arrayData = Array.from(data.data)
-  const array2 = arrayData.map((data)=>{
-    [data].map((anime)=> (
-      console.log(anime),
-      {
-        loc: `https://ki-anime.vercel.app/anime/${anime}`, // Absolute url
+  console.log("tamanho do array", arrayData.length);
+  let array = [
+    {
+      loc: `https://ki-anime.vercel.app/`, 
+      lastmod: new Date().toISOString(),
+    }
+  ]
+  arrayData.map((  data  )=>{
+    for(let x = 0; x < data.animes.length; x++){
+      array = [...array,{
+        loc: `https://ki-anime.vercel.app/anime/${data.animes[x].id}`, 
         lastmod: new Date().toISOString(),
-      }
-    ))
+      }]
+    }
+    // [data].map((anime, index)=> (
+    //   console.log(anime.animes),
+    //   {
+    //     loc: `https://ki-anime.vercel.app/anime/${anime.animes}`, // Absolute url
+    //     lastmod: new Date().toISOString(),
+    //   }
+    // ))
   })
-  console.log(array2)
-  const fields = []
+  console.log(array)
+  const fields = array
     // {
     //   loc: 'https://ki-anime.vercel.app', // Absolute url
     //   lastmod: new Date().toISOString(),

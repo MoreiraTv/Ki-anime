@@ -13,6 +13,7 @@
     "debug": "4.1",
     "globby": "^11.0.1",
     "next": "10.1.2",
+    "next-seo": "^4.28.1",
     "next-sitemap": "^1.6.256",
     "react": "17.0.2",
     "react-dom": "17.0.2",
